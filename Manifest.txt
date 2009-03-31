@@ -1,0 +1,13 @@
+History.txt
+Manifest.txt
+PostInstall.txt
+README.rdoc
+Rakefile
+lib/yubikey.rb
+script/console
+script/destroy
+script/generate
+spec/spec.opts
+spec/spec_helper.rb
+spec/yubikey_spec.rb
+tasks/rspec.rake

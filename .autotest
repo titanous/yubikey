@@ -1,0 +1,9 @@
+Autotest.add_hook :initialize do |at|
+  at.add_mapping(/ext\/.*\/(.*)\.[ch]/) do |_, m|
+        ["spec/#{m[1]}_extn_spec.rb"]
+      end
+end
+
+Autotest.add_hook :run_command do |at|
+  system "rake compile"
+end

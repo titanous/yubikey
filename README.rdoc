@@ -1,0 +1,17 @@
+= yubikey
+
+== Description
+
+FIX (describe your package)
+
+== Features
+
+* FIX (list of features or problems)
+
+== Install
+
+    sudo gem install yubikey
+
+== Copyright
+
+The MIT License. See `LICENSE`.
