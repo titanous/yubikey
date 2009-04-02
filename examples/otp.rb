@@ -1,4 +1,4 @@
-require File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib', 'yubikey'))
+require 'yubikey'
 
 key = 'ecde18dbe76fbd0c33330f1c354871db'
 otp = 'dteffujehknhfjbrjnlnldnhcujvddbikngjrtgh'
