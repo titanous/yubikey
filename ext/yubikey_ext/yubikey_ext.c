@@ -44,10 +44,11 @@ aes_decrypt(VALUE self, VALUE state, VALUE key) {
 
 void
 Init_yubikey_ext() {
-  VALUE rb_mAES = rb_define_module("AES");
-  VALUE rb_mModHex = rb_define_module("ModHex");
+  VALUE rb_mYubikey = rb_define_module("Yubikey");
+  VALUE rb_mYubikeyAES = rb_define_module_under(rb_mYubikey, "AES");
+  VALUE rb_mYubikeyModHex = rb_define_module_under(rb_mYubikey, "ModHex");
   
-  rb_define_module_function(rb_mModHex, "decode", modhex_decode, 1);
-  rb_define_module_function(rb_mModHex, "encode", modhex_encode, 1);
-  rb_define_module_function(rb_mAES, "decrypt", aes_decrypt, 2);
+  rb_define_module_function(rb_mYubikeyModHex, "decode", modhex_decode, 1);
+  rb_define_module_function(rb_mYubikeyModHex, "encode", modhex_encode, 1);
+  rb_define_module_function(rb_mYubikeyAES, "decrypt", aes_decrypt, 2);
 }
