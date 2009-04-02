@@ -15,7 +15,7 @@ describe 'yubikey_ext' do
   end
   
   it 'should raise if modhex string length uneven' do
-    lambda { ModHex.decode('ifh') }.should raise_error(RuntimeError)
+    lambda { ModHex.decode('ifh') }.should raise_error(ArgumentError)
   end
   
   it 'should decrypt aes' do

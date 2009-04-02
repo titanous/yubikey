@@ -9,7 +9,7 @@ modhex_decode(VALUE self, VALUE modhex_string) {
   char* decoded_string;
   
    if (modhex_string_size % 2 != 0)
-     rb_raise(rb_eRuntimeError, "ModHex string length is not even");
+     rb_raise(rb_eArgError, "ModHex string length is not even");
   
   yubikey_modhex_decode(decoded_string, modhex_string_ptr, modhex_string_size);
   return rb_str_new2(decoded_string);
