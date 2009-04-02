@@ -17,17 +17,6 @@ modhex_decode(VALUE self, VALUE modhex_string) {
   return rb_str_new(decoded_string, decoded_string_size);
 }
 
-// Yubikey::ModHex.encode('string')
-static VALUE
-modhex_encode(VALUE self, VALUE string) {
-  char* string_ptr = StringValuePtr(string);
-  size_t string_size = strlen(string_ptr);
-  char* modhex_string;
-  
-  yubikey_modhex_encode(modhex_string, string_ptr, string_size);
-  return rb_str_new2(modhex_string);
-}
-
 // Yubikey::AES.decrypt('state', 'key')
 static VALUE
 aes_decrypt(VALUE self, VALUE state, VALUE key) {
@@ -61,7 +50,6 @@ Init_yubikey_ext() {
   VALUE rb_mYubikeyCRC = rb_define_module_under(rb_mYubikey, "CRC");
   
   rb_define_module_function(rb_mYubikeyModHex, "decode", modhex_decode, 1);
-  rb_define_module_function(rb_mYubikeyModHex, "encode", modhex_encode, 1);
   rb_define_module_function(rb_mYubikeyAES, "decrypt", aes_decrypt, 2);
   rb_define_module_function(rb_mYubikeyCRC, "valid?", crc_check, 1);
 }
