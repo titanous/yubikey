@@ -34,7 +34,7 @@ aes_decrypt(VALUE self, VALUE state, VALUE key) {
   char* state_ptr = StringValuePtr(state);
   char* key_ptr = StringValuePtr(key);
   
-  if (strlen(state_ptr) != YUBIKEY_BLOCK_SIZE || strlen(key_ptr) != YUBIKEY_KEY_SIZE)
+  if (RSTRING(state)->len != YUBIKEY_BLOCK_SIZE || RSTRING(key)->len != YUBIKEY_KEY_SIZE)
     rb_raise(rb_eArgError, "key and state must be 16 bytes");
   
   yubikey_aes_decrypt((uint8_t*)state_ptr, (uint8_t*)key_ptr);
