@@ -12,6 +12,8 @@ describe 'yubikey_ext' do
     
     ModHex.decode('ifhgieif').should == 'test'
     ModHex.decode('hhhvhvhdhbid').should == 'foobar'
+    
+    ModHex.decode('cc').should == "\000"
   end
   
   it 'should raise if modhex string length uneven' do

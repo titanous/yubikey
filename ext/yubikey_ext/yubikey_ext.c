@@ -5,21 +5,23 @@
 static VALUE
 modhex_decode(VALUE self, VALUE modhex_string) {
   char* modhex_string_ptr = StringValuePtr(modhex_string);
-  int modhex_string_size = strlen(modhex_string_ptr);
+  size_t modhex_string_size = strlen(modhex_string_ptr);
+  size_t decoded_string_size = modhex_string_size/2;
   char* decoded_string;
   
    if (modhex_string_size % 2 != 0)
      rb_raise(rb_eArgError, "ModHex string length is not even");
   
   yubikey_modhex_decode(decoded_string, modhex_string_ptr, modhex_string_size);
-  return rb_str_new2(decoded_string);
+  
+  return rb_str_new(decoded_string, decoded_string_size);
 }
 
 // ModHex.encode('string')
 static VALUE
 modhex_encode(VALUE self, VALUE string) {
   char* string_ptr = StringValuePtr(string);
-  int string_size = strlen(string_ptr);
+  size_t string_size = strlen(string_ptr);
   char* modhex_string;
   
   yubikey_modhex_encode(modhex_string, string_ptr, string_size);
