@@ -40,4 +40,9 @@ describe 'yubikey_ext' do
     Yubikey::CRC.valid?('619dd70df3b30300de1bdb00ffbf6f26'.to_bin).should == true
     Yubikey::CRC.valid?('ddf43aec57366784e061a12f767e728a'.to_bin).should == false
   end
+  
+  it 'should raise if crc token length not 16' do
+    lambda { Yubikey::CRC.valid?('619dd70df3b30300de1bdb00ffbf6f'.to_bin) }.
+      should raise_error(ArgumentError)
+  end
 end
