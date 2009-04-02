@@ -19,9 +19,9 @@ describe 'yubikey_ext' do
   end
   
   it 'should decrypt aes' do
-    key = %w(72992427a3b8ccd20697493b5532561f).pack('H*')
-    state = %w(ddf43aec57366784e061a12f767e728a).pack('H*')
-    plain = %w(619dd70df3b30300de1bdb00ffbf6f26).pack('H*')
+    key = '72992427a3b8ccd20697493b5532561f'.to_bin
+    state = 'ddf43aec57366784e061a12f767e728a'.to_bin
+    plain = '619dd70df3b30300de1bdb00ffbf6f26'.to_bin
     
     AES.decrypt(state, key).should == plain
   end
