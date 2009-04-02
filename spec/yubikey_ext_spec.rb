@@ -35,4 +35,9 @@ describe 'yubikey_ext' do
     lambda { Yubikey::AES.decrypt('test', "\354\336\030\333\347o\275\f33\017\0345Hq\333") }.
       should raise_error(ArgumentError)
   end
+  
+  it 'should check a crc' do
+    Yubikey::CRC.valid?('619dd70df3b30300de1bdb00ffbf6f26'.to_bin).should == true
+    Yubikey::CRC.valid?('ddf43aec57366784e061a12f767e728a'.to_bin).should == false
+  end
 end
