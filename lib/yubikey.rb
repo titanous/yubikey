@@ -3,7 +3,8 @@ $:.unshift(File.dirname(__FILE__)) unless
 
 require 'yubikey_ext'
 require 'yubikey/hex'
+require 'yubikey/otp'
 
 module Yubikey
-  VERSION = '0.0.1'
+  VERSION = '0.2.0'
 end
