@@ -7,3 +7,5 @@ Makefile
 pkg
 doc
 .DS_Store
+coverage
+tmp

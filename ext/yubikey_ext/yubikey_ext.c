@@ -1,7 +1,12 @@
 #include "ruby.h"
 #include "yubikey.h"
 
-// Yubikey::ModHex.decode('modhex_string')
+/*
+ * call-seq:
+ *   decode(modhex_string) -> string
+ *
+ * Decode a ModHex string into binary data
+ */
 static VALUE
 modhex_decode(VALUE self, VALUE modhex_string) {
   char* modhex_string_ptr = StringValuePtr(modhex_string);
@@ -17,7 +22,16 @@ modhex_decode(VALUE self, VALUE modhex_string) {
   return rb_str_new(decoded_string, decoded_string_size);
 }
 
-// Yubikey::AES.decrypt('state', 'key')
+/*
+ * call-seq:
+ *   decrypt(state, key) -> plaintext
+ *
+ * Decrypt 16 bytes of binary AES ciphertext to binary plaintext with the Yubico implementation of AES-128 ECB
+ * 
+ * [+state+] 16 bytes of binary ciphertext
+ * [+key+] 16-byte binary key
+ *
+ */
 static VALUE
 aes_decrypt(VALUE self, VALUE state, VALUE key) {
   char* state_ptr = StringValuePtr(state);
@@ -31,7 +45,14 @@ aes_decrypt(VALUE self, VALUE state, VALUE key) {
   return rb_str_new(state_ptr, YUBIKEY_BLOCK_SIZE);
 }
 
-// Yubikey::CRC.valid?('token')
+/*
+ * call-seq:
+ *   valid?(token)
+ *
+ * Check the CRC of a decrypted Yubikey OTP
+ *
+ * [+token+] 16-byte binary token
+ */
 static VALUE
 crc_check(VALUE self, VALUE token) {
   char* token_ptr = StringValuePtr(token);

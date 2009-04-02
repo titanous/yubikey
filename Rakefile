@@ -1,19 +1,70 @@
-%w[rubygems rake rake/clean fileutils newgem rubigen].each { |f| require f }
-require File.dirname(__FILE__) + '/lib/yubikey'
+require 'rake'
+require 'spec/rake/spectask'
+require 'rdoc/task'
 
-$hoe = Hoe.new('yubikey', Yubikey::VERSION) do |p|
-  p.developer('Jonathan Rdenberg', 'jon335@gmail.com')
-  p.changes              = p.paragraphs_of("History.txt", 0..1).join("\n\n")
-  p.rubyforge_name       = p.name
-  p.extra_dev_deps = [
-    ['newgem', ">= #{::Newgem::VERSION}"]
-  ]
-  
-  p.clean_globs |= %w[**/.DS_Store tmp *.log]
-  path = (p.rubyforge_name == p.name) ? p.rubyforge_name : "\#{p.rubyforge_name}/\#{p.name}"
-  p.remote_rdoc_dir = File.join(path.gsub(/^#{p.rubyforge_name}\/?/,''), 'docs')
-  p.rsync_args = '-av --delete --ignore-errors'
+$LOAD_PATH.unshift('lib')
+
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |s|
+    s.name = "yubikey"
+    s.summary = "A library to decode, decrypt and parse Yubikey one-time passwords."
+    s.email = "jon335@gmail.com"
+    s.homepage = "http://github.com/titanous/yubikey"
+    s.description = "A library to decode, decrypt and parse Yubikey one-time passwords."
+    s.authors = ["Jonathan Rudenberg"]
+    s.extensions = FileList["ext/**/extconf.rb"]
+    s.rubyforge_project = 'yubikey'
+    s.has_rdoc = true
+  end
+rescue LoadError
+  puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
 end
 
-require 'newgem/tasks' # load /tasks/*.rake
-Dir['tasks/**/*.rake'].each { |t| load t }
+begin
+  require 'rake/contrib/sshpublisher'
+  namespace :rubyforge do
+
+    desc "Release gem and RDoc documentation to RubyForge"
+    task :release => ["rubyforge:release:gem", "rubyforge:release:docs"]
+
+    namespace :release do
+      desc "Publish RDoc to RubyForge."
+      task :docs => [:rdoc] do
+        config = YAML.load(
+            File.read(File.expand_path('~/.rubyforge/user-config.yml'))
+        )
+
+        host = "#{config['username']}@rubyforge.org"
+        remote_dir = "/var/www/gforge-projects/yubikey/"
+        local_dir = 'doc'
+
+        Rake::SshDirPublisher.new(host, remote_dir, local_dir).upload
+      end
+    end
+  end
+rescue LoadError
+  puts "Rake SshDirPublisher is unavailable or your rubyforge environment is not configured."
+end
+
+begin
+  require 'rake/extensiontask'
+  Rake::ExtensionTask.new('yubikey_ext')
+rescue LoadError
+  puts 'rake-compile is not available'
+end
+  
+
+RDoc::Task.new do |rdoc|
+  rdoc.rdoc_dir = 'doc'
+  rdoc.title = 'yubikey'
+  rdoc.main = "README.rdoc"
+  rdoc.rdoc_files.include('README*', 'lib/**/*.rb', 'ext/**/*.c')
+end
+
+Spec::Rake::SpecTask.new do |t|
+  t.spec_opts = ['--options', "spec/spec.opts"]
+  t.spec_files = FileList['spec/**/*_spec.rb']
+end 
+
+task :default => :spec

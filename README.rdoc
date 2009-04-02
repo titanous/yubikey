@@ -2,16 +2,32 @@
 
 == Description
 
-FIX (describe your package)
+A library to decode, decrypt and parse Yubikey[http://www.yubico.com/home/index/] one-time passwords.
 
-== Features
-
-* FIX (list of features or problems)
-
+== Usage
+    
+  key = 'ecde18dbe76fbd0c33330f1c354871db'
+  otp = 'dteffujehknhfjbrjnlnldnhcujvddbikngjrtgh'
+  token = Yubikey::OTP.new(otp, key)
+  
+  p "Device public id: #{token.public_id}" #=> 'dteffuje'
+  p "Device secret id: #{token.secret_id}" #=> '8792ebfe26cc'
+  p "Device insertions: #{token.insert_counter}" #=> 19
+  p "Session activation counter: #{token.session_counter}" #=> 17
+  p "Session timestamp: #{token.timestamp}" #=> 49712
+  p "OTP random data: #{token.random_number}" #=> 40904
+  
 == Install
 
-    sudo gem install yubikey
+  sudo gem install yubikey
 
 == Copyright
 
-The MIT License. See `LICENSE`.
+=== Ruby library
+  Written by Jonathan Rudenberg <jon335@gmail.com>
+  Copyright (c) 2009 Jonathan Rudenberg
+  The MIT License. See LICENSE.
+
+=== AES, ModHex, and CRC code
+  Written by Simon Josefsson <simon@josefsson.org>
+  Copyright (c) 2006, 2007, 2008, 2009 Yubico AB
