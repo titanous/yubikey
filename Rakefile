@@ -18,6 +18,7 @@ begin
     s.rubyforge_project = 'yubikey'
     s.has_rdoc = true
     s.extra_rdoc_files = ['ext/yubikey_ext/yubikey_ext.c', 'README.rdoc', 'LICENSE']
+    s.rdoc_options << '--title' << 'yubikey' << '--main' << 'README.rdoc'
   end
 rescue LoadError
   puts 'Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com'
