@@ -28,6 +28,9 @@ A library to decode, decrypt and parse Yubikey[http://www.yubico.com/home/index/
   Copyright (c) 2009 Jonathan Rudenberg
   The MIT License. See LICENSE.
 
+=== Contributors
+	Erik Ruwalder
+
 === AES, ModHex, and CRC code
   Written by Simon Josefsson <simon@josefsson.org>
   Copyright (c) 2006, 2007, 2008, 2009 Yubico AB
