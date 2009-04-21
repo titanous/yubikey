@@ -3,27 +3,6 @@
 
 /*
  * call-seq:
- *   decode(modhex_string) -> string
- *
- * Decode a ModHex string into binary data
- */
-static VALUE
-modhex_decode(VALUE self, VALUE modhex_string) {
-  char* modhex_string_ptr = StringValuePtr(modhex_string);
-  size_t modhex_string_size = strlen(modhex_string_ptr);
-  size_t decoded_string_size = modhex_string_size/2;
-  char* decoded_string;
-  
-   if (modhex_string_size % 2 != 0)
-     rb_raise(rb_eArgError, "ModHex string length is not even");
-  
-  yubikey_modhex_decode(decoded_string, modhex_string_ptr, modhex_string_size);
-  
-  return rb_str_new(decoded_string, decoded_string_size);
-}
-
-/*
- * call-seq:
  *   decrypt(state, key) -> plaintext
  *
  * Decrypt 16 bytes of binary AES ciphertext to binary plaintext with the Yubico implementation of AES-128 ECB
@@ -67,10 +46,8 @@ void
 Init_yubikey_ext() {
   VALUE rb_mYubikey = rb_define_module("Yubikey");
   VALUE rb_mYubikeyAES = rb_define_module_under(rb_mYubikey, "AES");
-  VALUE rb_mYubikeyModHex = rb_define_module_under(rb_mYubikey, "ModHex");
   VALUE rb_mYubikeyCRC = rb_define_module_under(rb_mYubikey, "CRC");
-  
-  rb_define_module_function(rb_mYubikeyModHex, "decode", modhex_decode, 1);
+
   rb_define_module_function(rb_mYubikeyAES, "decrypt", aes_decrypt, 2);
   rb_define_module_function(rb_mYubikeyCRC, "valid?", crc_check, 1);
 }

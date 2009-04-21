@@ -3,4 +3,5 @@ $:.unshift(File.dirname(__FILE__)) unless
 
 require 'yubikey_ext'
 require 'yubikey/hex'
+require 'yubikey/modhex'
 require 'yubikey/otp'
