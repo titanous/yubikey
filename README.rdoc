@@ -19,7 +19,7 @@ A library to decode, decrypt and parse Yubikey[http://www.yubico.com/home/index/
   p "Session timestamp: #{token.timestamp}" #=> 49712
   p "OTP random data: #{token.random_number}" #=> 40904
 
-== OTP Verification
+=== OTP Verification
 
   begin
     otp = Yubikey::OTP::Verify.new('dteffujehknhfjbrjnlnldnhcujvddbikngjrtgh')
