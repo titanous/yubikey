@@ -8,10 +8,10 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
     s.name = 'yubikey'
-    s.summary = 'A library to decode, decrypt and parse Yubikey one-time passwords.'
+    s.summary = 'A library to verify, decode, decrypt and parse Yubikey one-time passwords.'
     s.email = 'jon335@gmail.com'
     s.homepage = 'http://github.com/titanous/yubikey'
-    s.description = 'A library to decode, decrypt and parse Yubikey one-time passwords.'
+    s.description = 'A library to verify, decode, decrypt and parse Yubikey one-time passwords.'
     s.authors = ['Jonathan Rudenberg']
     s.extensions = FileList['ext/**/extconf.rb']
     s.files = FileList['lib/*.rb', 'lib/**/*.rb', 'examples/*.rb', 'spec/*', 'ext/**/*.c', 'ext/**/*.h', 'ext/**/*.rb']
