@@ -44,23 +44,6 @@
 
 #define yubikey_crc_ok_p(tok) (yubikey_crc16 ((tok), YUBIKEY_BLOCK_SIZE) == YUBIKEY_CRC_OK_RESIDUE)
 
-/*
- * Low-level functions; ModHex.
- */
-
-#define YUBIKEY_MODHEX_MAP "cbdefghijklnrtuv"
-
-/* ModHex encode input string SRC of length SRCSIZE and put the zero
-   terminated output string in DST.  The size of the output string DST
-   must be at least 2*SRCSIZE+1.  The output string is always
-   2*SRCSIZE large plus the terminating zero.  */
-extern void yubikey_modhex_encode(char *dst, const char *src, size_t srcsize);
-
-/* ModHex decode input string SRC of length DSTSIZE/2 into output
-   string DST.  The output string DST is always DSTSIZE/2 large plus
-   the terminating zero.  */
-extern void yubikey_modhex_decode(char *dst, const char *src, size_t dstsize);
-
 /* Low-level functions; AES. */
 
 /* AES-decrypt one 16-byte block STATE using the 128-bit KEY, leaving
