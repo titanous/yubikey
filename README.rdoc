@@ -45,6 +45,7 @@ A library to verify, decode, decrypt and parse Yubikey[http://www.yubico.com/hom
   The MIT License. See LICENSE.
 
 === Contributors
+  Carl Byström
   Erik Ruwalder
 
 === AES and CRC code

@@ -2,9 +2,11 @@ $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
 require 'net/http'
+require 'crypt/rijndael'
 require 'openssl'
 
-require 'yubikey_ext'
+module Yubikey; end;
+
 require 'yubikey/hex'
 require 'yubikey/modhex'
 require 'yubikey/otp'
