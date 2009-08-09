@@ -47,7 +47,3 @@ A library to verify, decode, decrypt and parse Yubikey[http://www.yubico.com/hom
 === Contributors
   Carl Byström
   Erik Ruwalder
-
-=== AES and CRC code
-  Written by Simon Josefsson <simon@josefsson.org>
-  Copyright (c) 2006, 2007, 2008, 2009 Yubico AB
