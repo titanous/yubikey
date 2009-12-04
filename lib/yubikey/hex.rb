@@ -2,7 +2,7 @@ class String
   
   # Convert hex string to binary
   def to_bin
-    to_a.pack('H*')
+    [self].pack('H*')
   end
   
   # Convert binary string to hex
