@@ -14,7 +14,6 @@ begin
     s.description = 'A library to verify, decode, decrypt and parse Yubikey one-time passwords.'
     s.authors = ['Jonathan Rudenberg', 'James Cox']
     s.add_dependency 'crypt19'
-    s.add_dependency 'always_verify_ssl_certificates'
     s.files = FileList['lib/*.rb', 'lib/**/*.rb', 'examples/*.rb', 'spec/*']
     s.rubyforge_project = 'yubikey'
     s.has_rdoc = true

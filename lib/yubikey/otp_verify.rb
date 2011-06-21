@@ -1,5 +1,3 @@
-require 'always_verify_ssl_certificates'
-
 module Yubikey
 
   API_URL = 'https://api.yubico.com/wsapi/'
@@ -7,7 +5,6 @@ module Yubikey
   API_KEY = 'e928a7d3076516a8c8c879f42c3ea0388f3b19f'
 
   class OTP::Verify
-    AlwaysVerifySSLCertificates.ca_file = File.expand_path(__FILE__ + "./cacert.pem")
 
     # The raw status from the Yubico server
     attr_reader :status
@@ -32,6 +29,8 @@ module Yubikey
 
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
+      http.ca_file = File.expand_path(__FILE__ + "./cacert.pem")
+      http.verify_mode = OpenSSL::SSL::VERIFY_PEER
 
       req = Net::HTTP::Get.new(uri.request_uri)
       result = http.request(req).body
