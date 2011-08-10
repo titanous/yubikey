@@ -21,7 +21,10 @@ class Yubikey::OTP
   #
   # [+otp+] ModHex encoded Yubikey OTP (at least 32 characters)
   # [+key+] 32-character hex AES key
-  def initialize(otp, key)    
+  def initialize(otp, key)
+    # Strip prefix so otp will decode (following from yubico-c library)
+    otp = otp[-32,32] if otp.length > 32
+    
     raise InvalidOTPError, 'OTP must be at least 32 characters of modhex' unless otp.modhex? && otp.length >= 32
     raise InvalidKeyError, 'Key must be 32 hex characters' unless key.hex? && key.length == 32
     
