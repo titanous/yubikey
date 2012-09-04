@@ -22,7 +22,9 @@ A library to verify, decode, decrypt and parse Yubikey[http://www.yubico.com/hom
 === OTP Verification
 
   begin
-    otp = Yubikey::OTP::Verify.new('dteffujehknhfjbrjnlnldnhcujvddbikngjrtgh')
+    otp = Yubikey::OTP::Verify.new(:id => 1234,
+                                   :key => 'NiSwGZBQ0gTbwXbRGWAf4kM5xXg=',
+                                   :otp => 'ccccccbfueddtinbknckgcbfnnbhbnlkcuebtgcvuurg')
   
     if otp.valid?
       p 'valid OTP'
@@ -47,3 +49,4 @@ A library to verify, decode, decrypt and parse Yubikey[http://www.yubico.com/hom
 === Contributors
   Carl Byström
   Erik Ruwalder
+  Chris Benedict at Mudbug Media
