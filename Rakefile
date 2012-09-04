@@ -12,7 +12,7 @@ begin
     s.email = 'jon335@gmail.com'
     s.homepage = 'http://github.com/titanous/yubikey'
     s.description = 'A library to verify, decode, decrypt and parse Yubikey one-time passwords.'
-    s.authors = ['Jonathan Rudenberg']
+    s.authors = ['Jonathan Rudenberg', 'James Cox']
     s.add_dependency 'crypt19'
     s.files = FileList['lib/*.rb', 'lib/**/*.rb', 'examples/*.rb', 'spec/*']
     s.rubyforge_project = 'yubikey'
@@ -35,6 +35,6 @@ end
 Spec::Rake::SpecTask.new do |t|
   t.spec_opts = ['--options', 'spec/spec.opts']
   t.spec_files = FileList['spec/**/*_spec.rb']
-end 
+end
 
 task :default => :spec

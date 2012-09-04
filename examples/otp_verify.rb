@@ -11,3 +11,8 @@ p "Device insertions: #{token.insert_counter}"
 p "Session activation counter: #{token.session_counter}"
 p "Session timestamp: #{token.timestamp}"
 p "OTP random data: #{token.random_number}"
+
+puts "VERIFICATION"
+
+p Yubikey::OTP::Verify.new(otp)
+
