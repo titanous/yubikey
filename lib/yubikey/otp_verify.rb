@@ -1,5 +1,6 @@
 require 'base64'
 require 'hmac-sha1'
+require 'SecureRandom'
 
 module Yubikey
   
@@ -9,22 +10,18 @@ module Yubikey
     # The raw status from the Yubico server
     attr_reader :status
 
-    @id  = ''
-    @key = ''
-    @http
-
     def initialize(args)
-      raise(ArgumentError, "Must supply API ID") if args[:id].nil?
-      raise(ArgumentError, "Must supply API Key") if args[:key].nil?
+      raise(ArgumentError, "Must supply API ID") if args[:api_id].nil?
+      raise(ArgumentError, "Must supply API Key") if args[:api_key].nil?
       raise(ArgumentError, "Must supply OTP") if args[:otp].nil?
 
-      @key = args[:key]
-      @id = args[:id]
+      @api_key = args[:api_key]
+      @api_id = args[:api_id]
       
       @url = args[:url] || API_URL
-      @nonce = args[:nonce] || generate_nonce(32)
+      @nonce = args[:nonce] || generate_nonce(16)
 
-      verify("id=#{@id}&otp=#{args[:otp]}")
+      verify(args)
     end
     
     def valid?
@@ -37,10 +34,12 @@ module Yubikey
     
     private
     
-    def verify(query)
+    def verify(args)
+
+      query = "id=#{@api_id}&otp=#{args[:otp]}&nonce=#{@nonce}"
 
       uri = URI.parse(@url) + 'verify'
-      uri.query = query + "&nonce=#{@nonce}"
+      uri.query = query
       
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
@@ -62,14 +61,11 @@ module Yubikey
     end
 
     def generate_nonce(length)
-      characters = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
-      nonce = ''
-      1.upto(length) { |index| nonce << characters[rand(characters.size-1)] }
-
-      return nonce
+      return SecureRandom.hex length
     end
 
     def verify_response(result)
+
       signature = result[/^h=(.+)$/, 1].strip
       returned_nonce = result[/nonce=(.+)$/, 1]
       returned_nonce.strip! unless returned_nonce.nil?
@@ -78,12 +74,12 @@ module Yubikey
         return false
       end
 
-      generated_signature = self.class.generate_hmac(result, @key)
+      generated_signature = self.class.generate_hmac(result, @api_key)
 
       return signature == generated_signature
     end
 
-    def self.generate_hmac(response, key)
+    def self.generate_hmac(response, api_key)
       response_params = response.split(' ')
       response_params.reject! do |p|
         p =~ /^h=(.+)$/
@@ -93,7 +89,7 @@ module Yubikey
       response_string.strip!
       response_string.encode! 'UTF-8'
 
-      hmac = HMAC::SHA1.new(Base64.decode64(key))
+      hmac = HMAC::SHA1.new(Base64.decode64(api_key))
       hmac.update(response_string)
 
       return Base64.encode64(hmac.digest).strip
