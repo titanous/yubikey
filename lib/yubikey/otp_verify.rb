@@ -19,7 +19,7 @@ module Yubikey
       @api_id = args[:api_id]
       
       @url = args[:url] || API_URL
-      @nonce = args[:nonce] || generate_nonce(16)
+      @nonce = args[:nonce] || generate_nonce(32)
 
       verify(args)
     end
@@ -61,7 +61,7 @@ module Yubikey
     end
 
     def generate_nonce(length)
-      return SecureRandom.hex length
+      return SecureRandom.hex length/2
     end
 
     def verify_response(result)
