@@ -1,5 +1,5 @@
 require 'rake'
-require 'spec/rake/spectask'
+#require 'spec/rake/spectask'
 require 'rdoc/task'
 
 $LOAD_PATH.unshift('lib')
@@ -13,7 +13,7 @@ begin
     s.homepage = 'http://github.com/titanous/yubikey'
     s.description = 'A library to verify, decode, decrypt and parse Yubikey one-time passwords.'
     s.authors = ['Jonathan Rudenberg']
-    s.add_dependency 'crypt19'
+    s.add_dependency 'otherinbox-crypt19'
     s.files = FileList['lib/*.rb', 'lib/**/*.rb', 'examples/*.rb', 'spec/*']
     s.rubyforge_project = 'yubikey'
     s.has_rdoc = true
@@ -32,9 +32,9 @@ RDoc::Task.new do |rdoc|
   rdoc.rdoc_files.include('README*', 'lib/**/*.rb')
 end
 
-Spec::Rake::SpecTask.new do |t|
-  t.spec_opts = ['--options', 'spec/spec.opts']
-  t.spec_files = FileList['spec/**/*_spec.rb']
-end 
+#Spec::Rake::SpecTask.new do |t|
+#  t.spec_opts = ['--options', 'spec/spec.opts']
+#  t.spec_files = FileList['spec/**/*_spec.rb']
+#end
 
 task :default => :spec
