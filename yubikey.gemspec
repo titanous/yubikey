@@ -58,4 +58,8 @@ Gem::Specification.new do |s|
   else
     s.add_dependency(%q<crypt19>, [">= 0"])
   end
+
+
+  # Development dependancies
+  s.add_development_dependency('rspec')
 end

@@ -3,6 +3,7 @@ $:.unshift(File.dirname(__FILE__)) unless
 
 require 'net/https'
 require 'crypt/rijndael'
+require 'openssl'
 
 module Yubikey; end;
 
