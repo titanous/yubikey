@@ -23,11 +23,11 @@ describe 'Yubikey::OTP::Verify' do
     end
 
     it "is valid" do
-      @result.valid?.should be_true
+      @result.should be_valid
     end
 
     it "is not replayed" do
-      @result.replayed?.should be_false
+      @result.should_not be_replayed
     end
 
   end
@@ -41,11 +41,11 @@ describe 'Yubikey::OTP::Verify' do
     end
 
     it "is invalid" do
-      @result.valid?.should be_false
+      @result.should be_valid
     end
 
     it "is replayed" do
-      @result.replayed?.should be_true
+      @result.should_not be_replayed
     end
 
   end
