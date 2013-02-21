@@ -2,12 +2,11 @@ PATH
   remote: .
   specs:
     yubikey (1.2.1)
-      crypt19
+      yubikey
 
 GEM
   remote: http://www.rubygems.org/
   specs:
-    crypt19 (1.2.1)
     diff-lcs (1.1.3)
     rspec (2.12.0)
       rspec-core (~> 2.12.0)
