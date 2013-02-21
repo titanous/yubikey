@@ -36,7 +36,7 @@ class Yubikey::OTP
     @token = Yubikey::ModHex.decode(otp[-32,32])
     @aes_key = key.to_bin
 
-    decrypter = OpenSSL::Cipher.new('AES-128-CBC').decrypt
+    decrypter = OpenSSL::Cipher.new('AES-128-ECB').decrypt
     decrypter.key = @aes_key
 
     @token = decrypter.update(@token) + decrypter.final
