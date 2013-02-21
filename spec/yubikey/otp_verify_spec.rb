@@ -1,3 +1,4 @@
+require './spec/spec_helper'
 describe 'Yubikey::OTP::Verify' do
 
   before do
