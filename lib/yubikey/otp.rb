@@ -36,15 +36,12 @@ class Yubikey::OTP
     @token = Yubikey::ModHex.decode(otp[-32,32])
     @aes_key = key.to_bin
 
-=begin
-    cipher = OpenSSL::Cipher.new('AES-128-ECB')
-    cipher.decrypt
-    cipher.key = @aes_key
+    decrypter = OpenSSL::Cipher.new('AES-128-CBC').decrypt
+    decrypter.key = @aes_key
 
-    token = cipher.update(@token) + cipher.final
-=end
+    @token = decrypter.update(@token) + decrypter.final
 
-    @token = Crypt::Rijndael.new(@aes_key, 128).decrypt_block(@token)
+#    @token = Crypt::Rijndael.new(@aes_key, 128).decrypt_block(@token)
 
     raise BadCRCError unless crc_valid?
 
