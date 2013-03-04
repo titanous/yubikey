@@ -31,7 +31,7 @@ module Yubikey
 
       http.use_ssl = true
       http.verify_depth = 2
-      https.enable_post_connection_check = true
+      http.enable_post_connection_check = true
       http.verify_mode = OpenSSL::SSL::VERIFY_PEER
       
       req = Net::HTTP::Get.new(uri.request_uri)
