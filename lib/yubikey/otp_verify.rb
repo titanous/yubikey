@@ -28,8 +28,11 @@ module Yubikey
       uri.query = query
       
       http = Net::HTTP.new(uri.host, uri.port)
+
       http.use_ssl = true
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      http.verify_depth = 2
+      https.enable_post_connection_check = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_PEER
       
       req = Net::HTTP::Get.new(uri.request_uri)
       result = http.request(req).body
