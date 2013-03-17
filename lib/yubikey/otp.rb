@@ -38,6 +38,7 @@ class Yubikey::OTP
 
     decrypter = OpenSSL::Cipher.new('AES-128-ECB').decrypt
     decrypter.key = @aes_key
+    decrypter.padding = 0
 
     @token = decrypter.update(@token) + decrypter.final
 
