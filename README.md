@@ -2,7 +2,7 @@
 
 ## Description
 
-A library to verify, decode, decrypt and parse (Yubikey)[http://www.yubico.com/home/index/] one-time passwords.
+A library to verify, decode, decrypt and parse [Yubikey](http://www.yubico.com/home/index/) one-time passwords.
 
 ## Usage
 
@@ -25,15 +25,15 @@ p "OTP random data: #{token.random_number}" #=> 40904
 
 ```ruby
 begin
-otp = Yubikey::OTP::Verify.new('dteffujehknhfjbrjnlnldnhcujvddbikngjrtgh')
-
-if otp.valid?
-  p 'valid OTP'
-elsif otp.replayed?
-  p 'replayed OTP'
-end
+  otp = Yubikey::OTP::Verify.new('dteffujehknhfjbrjnlnldnhcujvddbikngjrtgh')
+    
+  if otp.valid?
+    p 'valid OTP'
+  elsif otp.replayed?
+    p 'replayed OTP'
+  end
 rescue Yubikey::OTP::InvalidOTPError
-p 'invalid OTP'
+  p 'invalid OTP'
 end
 ```
 
@@ -52,13 +52,13 @@ Then run bundle install.
 ## Copyright
 
 ### Ruby library
-  Written by (Jonathan Rudenberg)[https://github.com/titanous] <jon335@gmail.com>
+  Written by [Jonathan Rudenberg](https://github.com/titanous) <jon335@gmail.com>
   Copyright (c) 2009 Jonathan Rudenberg
   The MIT License. See LICENSE.
 
 ### Contributors
-  Carl Byström
-  Erik Ruwalder
-  (Russell Smith)[https://github.com/ukd1]
-  (Chris Lundquist)[https://github.com/ChrisLundquist]
-  (Maarten van Grootel)[https://github.com/maartenvg]
+- Carl Byström
+- Erik Ruwalder
+- [Russell Smith](https://github.com/ukd1)
+- [Chris Lundquist](https://github.com/ChrisLundquist)
+- [Maarten van Grootel](https://github.com/maartenvg)
