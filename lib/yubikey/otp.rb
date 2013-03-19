@@ -15,34 +15,43 @@ class Yubikey::OTP
   attr_reader :session_counter
   # random integer used as padding and extra random noise
   attr_reader :random_number
-  
-  
+
+
   # Decode/decrypt a Yubikey one-time password
   #
   # [+otp+] ModHex encoded Yubikey OTP (at least 32 characters)
   # [+key+] 32-character hex AES key
   def initialize(otp, key)
+
+    # Get the public ID first
+    @public_id = otp[0, 12]
+
     # Strip prefix so otp will decode (following from yubico-c library)
     otp = otp[-32,32] if otp.length > 32
-    
+
     raise InvalidOTPError, 'OTP must be at least 32 characters of modhex' unless otp.modhex? && otp.length >= 32
     raise InvalidKeyError, 'Key must be 32 hex characters' unless key.hex? && key.length == 32
-    
-    @public_id = otp[0,otp.length-32] if otp.length > 32
-    
+
+
     @token = Yubikey::ModHex.decode(otp[-32,32])
     @aes_key = key.to_bin
-    
-    @token = Crypt::Rijndael.new(@aes_key, 128).decrypt_block(@token)
-    
+
+    decrypter = OpenSSL::Cipher.new('AES-128-ECB').decrypt
+    decrypter.key = @aes_key
+    decrypter.padding = 0
+
+    @token = decrypter.update(@token) + decrypter.final
+
+#    @token = Crypt::Rijndael.new(@aes_key, 128).decrypt_block(@token)
+
     raise BadCRCError unless crc_valid?
-    
+
     @secret_id, @insert_counter, @timestamp, @timestamp_lo, @session_counter, @random_number, @crc = @token.unpack('H12vvCCvv')
     @timestamp += @timestamp_lo * 65536
   end
-  
+
   private
-  
+
   def crc_valid?
     crc = 0xffff
     @token.each_byte do |b|
@@ -55,7 +64,7 @@ class Yubikey::OTP
     end
     crc == 0xf0b8
   end
-  
+
   # :stopdoc:
   class InvalidOTPError < StandardError; end
   class InvalidKeyError < StandardError; end

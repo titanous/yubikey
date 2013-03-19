@@ -10,3 +10,5 @@ doc
 coverage
 tmp
 script
+.idea
+.rvmrc
