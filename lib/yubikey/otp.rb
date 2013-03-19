@@ -42,8 +42,6 @@ class Yubikey::OTP
 
     @token = decrypter.update(@token) + decrypter.final
 
-#    @token = Crypt::Rijndael.new(@aes_key, 128).decrypt_block(@token)
-
     raise BadCRCError unless crc_valid?
 
     @secret_id, @insert_counter, @timestamp, @timestamp_lo, @session_counter, @random_number, @crc = @token.unpack('H12vvCCvv')
