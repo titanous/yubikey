@@ -12,3 +12,4 @@ tmp
 script
 .idea
 .rvmrc
+*.gem

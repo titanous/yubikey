@@ -1,13 +1,13 @@
 PATH
   remote: .
   specs:
-    yubikey (1.2.1)
-      yubikey
+    yubikey (1.3.0)
 
 GEM
   remote: http://www.rubygems.org/
   specs:
     diff-lcs (1.1.3)
+    rake (10.0.3)
     rspec (2.12.0)
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
@@ -18,8 +18,10 @@ GEM
     rspec-mocks (2.12.2)
 
 PLATFORMS
+  java
   ruby
 
 DEPENDENCIES
-  rspec
+  rake (>= 0.8.7)
+  rspec (>= 2.0)
   yubikey!
