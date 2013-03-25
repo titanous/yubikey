@@ -13,7 +13,6 @@ end
 
 RSpec::Core::RakeTask.new do |t|
   t.rspec_opts = ['--options', 'spec/spec.opts']
-#  t.rspec_files = FileList['spec/**/*_spec.rb']
 end
 
 task :default => :spec

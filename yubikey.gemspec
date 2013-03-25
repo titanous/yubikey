@@ -32,4 +32,3 @@ Gem::Specification.new do |s|
   s.add_dependency "jruby-openssl" if RUBY_PLATFORM == "java"
   s.add_dependency "openssl" if RUBY_PLATFORM == "ruby"
 end
-

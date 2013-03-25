@@ -25,7 +25,9 @@ p "OTP random data: #{token.random_number}" #=> 40904
 
 ```ruby
 begin
-  otp = Yubikey::OTP::Verify.new('dteffujehknhfjbrjnlnldnhcujvddbikngjrtgh')
+  otp = Yubikey::OTP::Verify.new(:api_id => 1234,
+                                 :api_key => 'NiSwGZBQ0gTbwXbRGWAf4kM5xXg=',
+                                 :otp => 'dteffujehknhfjbrjnlnldnhcujvddbikngjrtgh')
     
   if otp.valid?
     p 'valid OTP'
@@ -62,3 +64,4 @@ Then run bundle install.
 - [Russell Smith](https://github.com/ukd1)
 - [Chris Lundquist](https://github.com/ChrisLundquist)
 - [Maarten van Grootel](https://github.com/maartenvg)
+- [Chris Benedict](https://github.com/chrisbdaemon)
