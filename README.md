@@ -57,9 +57,11 @@ Then run bundle install.
 ## Copyright
 
 ### Ruby library
-  Written by [Jonathan Rudenberg](https://github.com/titanous) <jon335@gmail.com>
-  Copyright (c) 2009 Jonathan Rudenberg
-  The MIT License. See LICENSE.
+Written by [Jonathan Rudenberg](https://github.com/titanous)
+
+Copyright (c) 2009 Jonathan Rudenberg
+
+The MIT License. See LICENSE.
 
 ### Contributors
 - Carl Byström
