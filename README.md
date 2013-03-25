@@ -31,7 +31,7 @@ begin
   otp = Yubikey::OTP::Verify.new(:api_id => 1234,
                                  :api_key => 'NiSwGZBQ0gTbwXbRGWAf4kM5xXg=',
                                  :otp => 'dteffujehknhfjbrjnlnldnhcujvddbikngjrtgh')
-    
+
   if otp.valid?
     p 'valid OTP'
   elsif otp.replayed?
@@ -57,16 +57,11 @@ Then run bundle install.
 ## Copyright
 
 ### Ruby library
-Written by [Jonathan Rudenberg](https://github.com/titanous)
 
-Copyright (c) 2009 Jonathan Rudenberg
+Written by [Jonathan Rudenberg](https://github.com/titanous). Copyright (c) 2009 Jonathan Rudenberg
 
-The MIT License. See LICENSE.
+The MIT License. See [LICENSE](https://github.com/titanous/yubikey/blob/master/LICENSE).
 
 ### Contributors
-- Carl Byström
-- Erik Ruwalder
-- [Russell Smith](https://github.com/ukd1)
-- [Chris Lundquist](https://github.com/ChrisLundquist)
-- [Maarten van Grootel](https://github.com/maartenvg)
-- [Chris Benedict](https://github.com/chrisbdaemon)
+
+[List of contributors](https://github.com/titanous/yubikey/graphs/contributors)
