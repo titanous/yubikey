@@ -1,4 +1,5 @@
 require 'base64'
+require 'securerandom'
 
 module Yubikey
   
@@ -17,7 +18,7 @@ module Yubikey
       @api_id = args[:api_id]
       
       @url = args[:url] || API_URL
-      @nonce = args[:nonce] || generate_nonce(32)
+      @nonce = args[:nonce] || OTP::Verify.generate_nonce(32)
 
       verify(args)
     end
@@ -33,7 +34,6 @@ module Yubikey
     private
     
     def verify(args)
-
       query = "id=#{@api_id}&otp=#{args[:otp]}&nonce=#{@nonce}"
 
       uri = URI.parse(@url) + 'verify'
@@ -58,10 +58,6 @@ module Yubikey
       end
     end
 
-    def generate_nonce(length)
-      return SecureRandom.hex length/2
-    end
-
     def verify_response(result)
 
       signature = result[/^h=(.+)$/, 1].strip
@@ -72,10 +68,16 @@ module Yubikey
         return false
       end
 
-      generated_signature = self.class.generate_hmac(result, @api_key)
+      generated_signature = OTP::Verify.generate_hmac(result, @api_key)
 
       return signature == generated_signature
     end
+
+
+    def self.generate_nonce(length)
+      return SecureRandom.hex length/2
+    end
+
 
     def self.generate_hmac(response, api_key)
       response_params = response.split(' ')

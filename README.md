@@ -22,6 +22,7 @@ p "OTP random data: #{token.random_number}" #=> 40904
 ```
 
 ### OTP Verification
+Use your own `api_key` and `api_id`, which you can get at [yubico.com](https://upgrade.yubico.com/getapikey/).
 
 ```ruby
 begin
