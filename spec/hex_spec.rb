@@ -1,3 +1,4 @@
+# encoding: US-ASCII 
 describe 'hex' do
   it 'encodes binary to hex' do
     "i\266H\034\213\253\242\266\016\217\"\027\233X\315V".to_hex.

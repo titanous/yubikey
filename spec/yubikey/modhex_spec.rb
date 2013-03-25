@@ -1,3 +1,4 @@
+# encoding: US-ASCII 
 describe 'Yubikey::Modhex' do
 
   it 'decodes modhex' do
