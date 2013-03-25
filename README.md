@@ -1,6 +1,6 @@
 # yubikey
 
-[![Build Status](https://travis-ci.org/rainforestapp/yubikey.png?branch=master)](https://travis-ci.org/rainforestapp/yubikey)
+[![Build Status](https://travis-ci.org/titanous/yubikey.png?branch=master)](https://travis-ci.org/titanous/yubikey)
 
 ## Description
 
