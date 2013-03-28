@@ -43,11 +43,44 @@ describe 'Yubikey::OTP::Verify' do
     bad_response = "#{@response}status=BAD_OTP"
     hmac = Yubikey::OTP::Verify::generate_hmac(bad_response, @key)
     @mock_http_get.should_receive(:body).and_return("h=#{hmac}\n#{bad_response}")
-    lambda { otp = Yubikey::OTP::Verify.new(:api_id => @id, :api_key => @key, :otp => @otp, :nonce => @nonce) }.should raise_error(Yubikey::OTP::InvalidOTPError)
+    expect { otp = Yubikey::OTP::Verify.new(:api_id => @id, :api_key => @key, :otp => @otp, :nonce => @nonce) }.to raise_error(Yubikey::OTP::InvalidOTPError)
   end
 
   it 'should generate a correct hmac' do
     Yubikey::OTP::Verify::generate_hmac(@response, @key).should == 'sZqbbsXL5WIdqLNmr19/eq6acSM='
+  end
+
+  it 'should raise on invalid parameters' do
+    expect{ Yubikey::OTP::Verify.new({}) }.to raise_error(ArgumentError, "Must supply API ID")
+    expect{ Yubikey::OTP::Verify.new({api_id: 'foo'}) }.to raise_error(ArgumentError, "Must supply API Key")
+  end
+
+  context "with module configuration" do
+    before do
+      Yubikey.configure do |config|
+        config.api_id  = @id
+        config.api_key = @key
+      end
+    end
+
+    after do
+      Yubikey.reset
+    end
+
+    it "should inherit module configuration" do
+      expect{ Yubikey::OTP::Verify.new({}) }.to_not raise_error(ArgumentError, "Must supply API ID")
+      expect{ Yubikey::OTP::Verify.new({api_id: 'foo'}) }.to_not raise_error(ArgumentError, "Must supply API Key")
+    end
+
+    it "should verify a valid OTP" do
+      ok_response = "#{@response}status=OK"
+      hmac = Yubikey::OTP::Verify::generate_hmac(ok_response, @key)
+      @mock_http_get.should_receive(:body).and_return("h=#{hmac}\n#{ok_response}")
+      otp = Yubikey::OTP::Verify.new(:otp => @otp, :nonce => @nonce)
+      otp.valid?.should == true
+      otp.replayed?.should == false
+
+    end
   end
 
 end

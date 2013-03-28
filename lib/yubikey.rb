@@ -4,9 +4,13 @@ $LOAD_PATH.unshift(File.dirname(__FILE__)) unless
 require 'net/https'
 require 'openssl'
 
-module Yubikey; end;
-
+require 'yubikey/configuration'
 require 'yubikey/hex'
 require 'yubikey/modhex'
 require 'yubikey/otp'
 require 'yubikey/otp_verify'
+
+module Yubikey
+  extend Configuration
+end
+
