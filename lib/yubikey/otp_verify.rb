@@ -10,13 +10,13 @@ module Yubikey
     attr_reader :status
 
     def initialize(args)
-      raise(ArgumentError, "Must supply API ID") if args[:api_id].nil?
-      raise(ArgumentError, "Must supply API Key") if args[:api_key].nil?
+      @api_key = args[:api_key] || Yubikey.api_key
+      @api_id  = args[:api_id]  || Yubikey.api_id
+      raise(ArgumentError, "Must supply API ID") if @api_id.nil?
+      raise(ArgumentError, "Must supply API Key") if @api_key.nil?
+
       raise(ArgumentError, "Must supply OTP") if args[:otp].nil?
 
-      @api_key = args[:api_key]
-      @api_id = args[:api_id]
-      
       @url = args[:url] || API_URL
       @nonce = args[:nonce] || OTP::Verify.generate_nonce(32)
 
