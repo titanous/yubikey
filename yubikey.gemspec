@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
   s.name = "yubikey"
-  s.version = "1.3.0"
+  s.version = "1.3.1"
   s.description = "A library to verify, decode, decrypt and parse Yubikey one-time passwords."
   s.summary = "Yubikey library for Ruby"
 
