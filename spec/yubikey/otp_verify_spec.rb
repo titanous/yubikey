@@ -52,7 +52,7 @@ describe 'Yubikey::OTP::Verify' do
 
   it 'should raise on invalid parameters' do
     expect{ Yubikey::OTP::Verify.new({}) }.to raise_error(ArgumentError, "Must supply API ID")
-    expect{ Yubikey::OTP::Verify.new({api_id: 'foo'}) }.to raise_error(ArgumentError, "Must supply API Key")
+    expect{ Yubikey::OTP::Verify.new({:api_id => 'foo'}) }.to raise_error(ArgumentError, "Must supply API Key")
   end
 
   context "with module configuration" do
@@ -69,7 +69,7 @@ describe 'Yubikey::OTP::Verify' do
 
     it "should inherit module configuration" do
       expect{ Yubikey::OTP::Verify.new({}) }.to_not raise_error(ArgumentError, "Must supply API ID")
-      expect{ Yubikey::OTP::Verify.new({api_id: 'foo'}) }.to_not raise_error(ArgumentError, "Must supply API Key")
+      expect{ Yubikey::OTP::Verify.new({:api_id => 'foo'}) }.to_not raise_error(ArgumentError, "Must supply API Key")
     end
 
     it "should verify a valid OTP" do
