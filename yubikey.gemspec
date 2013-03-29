@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.files = [
       "examples/otp.rb",
       "lib/yubikey.rb",
+      "lib/yubikey/configuration.rb",
       "lib/yubikey/hex.rb",
       "lib/yubikey/modhex.rb",
       "lib/yubikey/otp.rb",
