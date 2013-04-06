@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    yubikey (1.3.0)
+    yubikey (1.3.1)
 
 GEM
   remote: http://www.rubygems.org/
