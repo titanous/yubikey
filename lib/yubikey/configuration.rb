@@ -5,13 +5,17 @@ module Yubikey
     VALID_OPTIONS_KEYS = [
       :api_id,
       :api_key,
+      :certificate_chain,
     ].freeze
 
     # By default, don't have an api_id
-    DEFAULT_API_ID = nil
+    DEFAULT_API_ID            = nil
 
     # By default, don't have an api_key
-    DEFAULT_API_KEY = nil
+    DEFAULT_API_KEY           = nil
+
+    # Default location of the Yubico certificate chain
+    DEFAULT_CERTIFICATE_CHAIN = File.join(File.dirname(__FILE__), '../cert/chain.pem')
 
     # @private
     attr_accessor *VALID_OPTIONS_KEYS
@@ -35,8 +39,9 @@ module Yubikey
 
     # Reset all configuration options to defaults
     def reset
-      self.api_id  = DEFAULT_API_ID
-      self.api_key = DEFAULT_API_KEY
+      self.api_id            = DEFAULT_API_ID
+      self.api_key           = DEFAULT_API_KEY
+      self.certificate_chain = DEFAULT_CERTIFICATE_CHAIN
     end
   end
 end
