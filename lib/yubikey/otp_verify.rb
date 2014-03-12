@@ -5,8 +5,6 @@ require "uri"
 
 module Yubikey
   
-  API_URL = 'https://api.yubico.com/wsapi/2.0/'
-
   class OTP::Verify
     # The raw status from the Yubico server
     attr_reader :status
@@ -19,7 +17,7 @@ module Yubikey
       raise(ArgumentError, "Must supply API Key") if @api_key.nil?
       raise(ArgumentError, "Must supply OTP") if args[:otp].nil?
 
-      @url = args[:url] || API_URL
+      @url = args[:url] || Yubikey.url
       @nonce = args[:nonce] || OTP::Verify.generate_nonce(32)
       
       @certificate_chain = args[:certificate_chain] || Yubikey.certificate_chain
