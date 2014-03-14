@@ -4,9 +4,13 @@ module Yubikey
     # An array of valid keys in the options hash when configuring a Yubikey::OTP::Verify
     VALID_OPTIONS_KEYS = [
       :api_id,
+      :url,
       :api_key,
       :certificate_chain,
     ].freeze
+
+    # By default, we want to point to Yubicloud
+    DEFAULT_API_URL           = 'https://api.yubico.com/wsapi/2.0/'
 
     # By default, don't have an api_id
     DEFAULT_API_ID            = nil
@@ -40,6 +44,7 @@ module Yubikey
     # Reset all configuration options to defaults
     def reset
       self.api_id            = DEFAULT_API_ID
+      self.url               = DEFAULT_API_URL
       self.api_key           = DEFAULT_API_KEY
       self.certificate_chain = DEFAULT_CERTIFICATE_CHAIN
     end
