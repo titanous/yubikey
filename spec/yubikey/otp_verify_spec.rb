@@ -75,7 +75,6 @@ describe 'Yubikey::OTP::Verify' do
       otp = Yubikey::OTP::Verify.new(:otp => @otp, :nonce => @nonce)
       otp.valid?.should == true
       otp.replayed?.should == false
-
     end
   end
 
