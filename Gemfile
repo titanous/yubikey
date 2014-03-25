@@ -2,13 +2,6 @@ source "http://www.rubygems.org"
 
 gemspec
 
-group :development do
-  gem "rake",  ">= 0.8.7"
-  gem "rdoc"
-end
-
-group :test do
-  gem "rake",  ">= 0.8.7"
-  gem "rspec", ">= 2.0"
-  gem "rdoc"
+platforms :rbx do
+  gem 'rubysl', '~> 2.0' # if using anything in the ruby standard library
 end

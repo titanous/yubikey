@@ -32,5 +32,9 @@ Gem::Specification.new do |s|
 
   # OpenSSL is now a dependancy
   s.add_dependency "jruby-openssl" if RUBY_PLATFORM == "java"
-  s.add_dependency "openssl" if RUBY_PLATFORM == "ruby"
+  s.add_dependency "openssl" if RUBY_PLATFORM == "ruby"  
+
+  s.add_development_dependency 'rake', ">= 0.8.7"
+  s.add_development_dependency 'rdoc'
+  s.add_development_dependency 'rspec', ">= 2.0"  
 end
