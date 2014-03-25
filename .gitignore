@@ -14,3 +14,4 @@ script
 .rvmrc
 *.gem
 .project
+Gemfile.lock

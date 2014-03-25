@@ -16,7 +16,7 @@ describe "Cert Chain" do
     
     req = Net::HTTP::Get.new(uri.request_uri)
     
-    expect {http.request(req)}.to_not raise_error(OpenSSL::SSL::SSLError)
+    expect {http.request(req)}.to_not raise_error()
   end
   
   it "should not accept cert from anywhere else" do

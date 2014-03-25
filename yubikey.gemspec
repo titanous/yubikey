@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
       "lib/yubikey/modhex.rb",
       "lib/yubikey/otp.rb",
       "lib/yubikey/otp_verify.rb",
+      "lib/cert/chain.pem",
       "spec/hex_spec.rb",
       "spec/spec_helper.rb"
   ]
@@ -32,4 +33,10 @@ Gem::Specification.new do |s|
   # OpenSSL is now a dependancy
   s.add_dependency "jruby-openssl" if RUBY_PLATFORM == "java"
   s.add_dependency "openssl" if RUBY_PLATFORM == "ruby"
+  
+  s.add_development_dependency 'rake', ">= 0.8.7"
+  s.add_development_dependency 'rdoc'
+  s.add_development_dependency 'rspec', ">= 2.0"
+  
+  
 end

@@ -11,15 +11,15 @@ describe 'Yubikey::OTP::Verify' do
       "otp=ccccccbfueddkcnctfkrhdfrbtfutgtididiguttlctr\n" +
       "nonce=cEnCRWOnpFurshnksfcAEZvWoqdXlwbs\n"
     
-    @mock_http = mock('http')
-    @mock_http_get = mock('http_get')
-    Net::HTTP.stub!(:new).with('api.yubico.com', 443).and_return(@mock_http)
-    @mock_http.stub!(:use_ssl=).with(true).and_return(nil)
-    @mock_http.stub!(:verify_mode=).with(OpenSSL::SSL::VERIFY_PEER).and_return(nil)
-    @mock_http.stub!(:cert_store=)
-    @mock_http.stub!(:request).with(@mock_http_get).and_return(@mock_http_get)
+    @mock_http = double('http')
+    @mock_http_get = double('http_get')
+    Net::HTTP.stub(:new).with('api.yubico.com', 443).and_return(@mock_http)
+    @mock_http.stub(:use_ssl=).with(true).and_return(nil)
+    @mock_http.stub(:verify_mode=).with(OpenSSL::SSL::VERIFY_PEER).and_return(nil)
+    @mock_http.stub(:cert_store=)
+    @mock_http.stub(:request).with(@mock_http_get).and_return(@mock_http_get)
     
-    Net::HTTP::Get.stub!(:new).with(/id=#{@id}&otp=#{@otp}&nonce=[a-zA-Z0-9]{32}/).and_return(@mock_http_get)
+    Net::HTTP::Get.stub(:new).with(/id=#{@id}&otp=#{@otp}&nonce=[a-zA-Z0-9]{32}/).and_return(@mock_http_get)
   end
   
   it 'should verify a valid OTP' do
@@ -66,11 +66,6 @@ describe 'Yubikey::OTP::Verify' do
 
     after do
       Yubikey.reset
-    end
-
-    it "should inherit module configuration" do
-      expect{ Yubikey::OTP::Verify.new({}) }.to_not raise_error(ArgumentError, "Must supply API ID")
-      expect{ Yubikey::OTP::Verify.new({:api_id => 'foo'}) }.to_not raise_error(ArgumentError, "Must supply API Key")
     end
 
     it "should verify a valid OTP" do
