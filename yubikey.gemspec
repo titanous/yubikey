@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
       "lib/yubikey/modhex.rb",
       "lib/yubikey/otp.rb",
       "lib/yubikey/otp_verify.rb",
+      "lib/cert/chain.pem",
       "spec/hex_spec.rb",
       "spec/spec_helper.rb"
   ]
