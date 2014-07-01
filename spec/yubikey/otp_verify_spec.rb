@@ -56,6 +56,14 @@ describe 'Yubikey::OTP::Verify' do
     expect{ Yubikey::OTP::Verify.new({:api_id => 'foo'}) }.to raise_error(ArgumentError, "Must supply API Key")
   end
 
+  it 'should parse the otp from the response' do
+    ok_response = "#{@response}status=OK"
+    hmac = Yubikey::OTP::Verify::generate_hmac(ok_response, @key)
+    @mock_http_get.should_receive(:body).and_return("h=#{hmac}\n#{ok_response}")
+    verify = Yubikey::OTP::Verify.new(:api_id => @id, :api_key => @key, :otp => @otp, :nonce => @nonce)
+    verify.otp.should == @otp
+  end
+
   context "with module configuration" do
     before do
       Yubikey.configure do |config|

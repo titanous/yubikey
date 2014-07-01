@@ -35,6 +35,10 @@ module Yubikey
       @status == 'REPLAYED_OTP'
     end
     
+    def otp
+      @otp
+    end
+
     private
     
     def verify(args)
@@ -52,6 +56,7 @@ module Yubikey
       result = http.request(req).body
 
       @status = result[/status=(.*)$/,1].strip
+      @otp = result[/otp=(.*)$/,1].strip
       
       if @status == 'BAD_OTP' || @status == 'BACKEND_ERROR'
         raise OTP::InvalidOTPError, "Received error: #{@status}"
