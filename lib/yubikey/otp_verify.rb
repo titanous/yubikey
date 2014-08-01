@@ -56,7 +56,6 @@ module Yubikey
       result = http.request(req).body
 
       @status = result[/status=(.*)$/,1].strip
-      @otp = result[/otp=(.*)$/,1].strip
       
       if @status == 'BAD_OTP' || @status == 'BACKEND_ERROR'
         raise OTP::InvalidOTPError, "Received error: #{@status}"
@@ -66,6 +65,8 @@ module Yubikey
         @status = 'BAD_RESPONSE'
         return
       end
+
+      @otp = result[/otp=(.*)$/,1].strip
     end
 
     def verify_response(result)
