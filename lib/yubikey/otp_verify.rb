@@ -35,6 +35,10 @@ module Yubikey
       @status == 'REPLAYED_OTP'
     end
     
+    def otp
+      @otp
+    end
+
     private
     
     def verify(args)
@@ -61,6 +65,8 @@ module Yubikey
         @status = 'BAD_RESPONSE'
         return
       end
+
+      @otp = result[/otp=(.*)$/,1].strip
     end
 
     def verify_response(result)
